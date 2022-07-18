@@ -29,9 +29,9 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 `├── zm_init`  
 `├── zm_logs`  
 `└── zm_www`  
-`    ├── index.php`  
-`    ├── styles.css`  
-`    └── zoom.js`  
+`    ├── index.php`  
+`    ├── styles.css`  
+`    └── zoom.js`  
   
 `mkdir /zm_data/`  
 `cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
