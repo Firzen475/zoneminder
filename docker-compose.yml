@@ -89,61 +89,61 @@ volumes:
         type: 'none'
         o: bind
         device: "/zm_data/datastorage4/"
-   zm_images:
+   images:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/images/"
    # Если база пуста, отсюда берётся бекап
-   zm_init:
+   init:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/init/"
    # Место хранения бекапов
-   zm_backup:
+   backup:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/backup/"
    # Место хранения скрипта бекапов, полезно если нужно внести правки в скрипт
-   zm_cron:
+   cron:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/cron/"
    # База с настройками, выненсена, чтобы не очищалась при перезапуске контейнера
-   zm_db:
+   db:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/db/"
    # Логи zm
-   zm_logs:
+   logs:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/logs/"
    # Папка с сайтом мониторинга
-   zm_www:
+   www:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/www/"
-   zm_cert:
+   cert:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
         device: "/zm_data/cert/"
-   zm_apache_logs:
+   apache_logs:
       driver: local
       driver_opts:
         type: 'none'
