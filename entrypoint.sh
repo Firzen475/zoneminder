@@ -82,12 +82,16 @@ init_database(){
             break
         fi
     done
+        echo "ZMCREATE $ZMCREATE"
     if [ "$(zm_db_exists)" -eq "0" ]; then
         echo " * First run of mysql in the container, creating ZoneMinder dB."
+        if [ -d "/var/lib/mysql/zm/" ]; then
+                rm -rf /var/lib/mysql/zm/
+        fi
         mysql -u root -e "CREATE USER 'zmuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zmpass';"
         mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'zmuser'@'localhost';"
         mysql -u root < $ZMCREATE
-        mysql -u root zm < $(ls /init/*.sql -t | head -1) || true
+        mysql -u root zm < /init/dump.sql || true
     else
         echo " * ZoneMinder dB already exists, skipping table creation."
     fi
@@ -140,6 +144,7 @@ _init_local_cam
 _init_auth_wall
 
 init_database
+
 start_zoneminder
 
 _start_cron
