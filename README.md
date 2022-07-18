@@ -12,26 +12,26 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
   
 ### II.2 Подготовка пространства  
 Конечная структура  
-`/zoneminder/`  
-`├── zm_apache_logs`  
-`├── zm_backup`  
-`├── zm_cert`  
+`/zm_data/`  
+`├── apache_logs` 
+`├── backup`  
+`├── cert`  
 `│   ├── zoneminder.crt`  
 `│   └── zoneminder.key`  
-`├── zm_cron`  
+`├── cron`  
 `│   └── cron.sh`  
-`├── zm_datastorage1`  
-`├── zm_datastorage2`  
-`├── zm_datastorage3`  
-`├── zm_datastorage4`  
-`├── zm_db`  
-`├── zm_images`  
-`├── zm_init`  
-`├── zm_logs`  
-`└── zm_www`  
-`    ├── index.php`  
-`    ├── styles.css`  
-`    └── zoom.js`  
+`├── datastorage1`  
+`├── datastorage2`  
+`├── datastorage3`  
+`├── datastorage4`  
+`├── db`  
+`├── images`  
+`├── init`  
+`├── logs`  
+`└── www`  
+`    ├── index.php`  
+`    ├── styles.css`  
+`    └── zoom.js`  
   
 `mkdir /zm_data/`  
 `cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
