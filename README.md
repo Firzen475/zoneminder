@@ -38,23 +38,23 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 `cd / && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git`  
 `cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/`  
 Для создания сертификата нужно отредактировать файл:  
-`nano /zoneminder_source/cert/zoneminder.conf`  
-`openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zoneminder/cert/zoneminder.key -out /zoneminder/cert/zoneminder.crt -config /zoneminder_source/cert/zoneminder.conf`  
+`nano /zoneminder/cert/zoneminder.conf`  
+`openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf`  
   
 ### II.2 Подготовка развертывания
 Нужно подправить следующие файлы:
-`nano /zoneminder_source/.env`  
-`nano /zoneminder_source/docker-compose.yml`  
+`nano /zoneminder/.env`  
+`nano /zoneminder/docker-compose.yml`  
 И ознакомиться с оставшимися файлами  
   
 ***  
 
 ## III Развертывание  
 `#Сборка из Dockerfile`  
-`cd /zoneminder_source/`  
+`cd /zoneminder/`  
 `docker-compose down && docker-compose build --force-rm && docker-compose up -d`  
 `#Запуск без сборки`  
-`cd /zoneminder_source/`  
+`cd /zoneminder/`  
 `docker-compose down && docker-compose up -d` 
 `#Проверка статуса`  
 `docker container ls`  
