@@ -33,10 +33,10 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 `    ├── styles.css`  
 `    └── zoom.js`  
   
-`mkdir /zoneminder/ && mkdir /zoneminder_source/`  
-`cd /zoneminder && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
-`cd /zoneminder_source && git clone --branch master --single-branch https://github.com/Firzen475/zoneminder.git`  
-`cp /zoneminder_source/www/* /zoneminder_source/www/ && cp /zoneminder_source/cron/* /zoneminder_source/cron/`  
+`mkdir /zm_data/`  
+`cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
+`cd / && git clone --branch master --single-branch https://github.com/Firzen475/zoneminder.git`  
+`cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/`  
 Для создания сертификата нужно отредактировать файл:  
 `nano /zoneminder_source/cert/zoneminder.conf`  
 `openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zoneminder/cert/zoneminder.key -out /zoneminder/cert/zoneminder.crt -config /zoneminder_source/cert/zoneminder.conf`  
