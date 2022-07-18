@@ -1,0 +1,153 @@
+version: "3.3"
+services:
+  zoneminder:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args: 
+      # Аргументы используются только при создании нового контейнера из Dockerfile. При запуске существующего изменить их нельзя.
+        - TZ=Asia/Yekaterinburg
+        - ZM_VERSION=1.36
+    image: zoneminder
+    container_name: zoneminder
+    ports:
+      - 8000:80
+      - 4430:443
+      # Порты 300** нужно открывать если планируется рестрим на другие ресурсы, иначе просмотр будет недоступен.
+      - 30001:30001
+      - 30002:30002
+      - 30003:30003
+      - 30004:30004
+      - 30005:30005
+      - 30006:30006
+      - 30007:30007
+      - 30008:30008
+      - 30009:30009
+      - 30010:30010
+      - 30011:30011
+      - 30012:30012
+      - 30013:30013
+      - 30014:30014
+      - 30015:30015
+      - 30016:30016
+      - 30017:30017
+      - 30018:30018
+      - 30019:30019
+      - 30020:30020
+    volumes:
+      - datastorage1:/datastorage1/
+      - datastorage2:/datastorage2/
+      - datastorage3:/datastorage3/
+      - datastorage4:/datastorage4/
+      - images:/var/cache/zoneminder/images/
+      - init:/init/
+      - backup:/backup/
+      - cron:/cron/
+      - db:/var/lib/mysql/
+      - logs:/var/log/zm/
+      - www:/var/www/wall/
+      - cert:/cert/
+      - apache_logs:/var/log/apache2/
+    environment:
+      # Полная очистка базы
+      - CLEAR_DB=false
+      # Расписание создания резервных копий
+      - SHEDULE=0 3 */1 * *
+      # Порт, на котором планиеруется сервер на хосте
+      - HTTPS_PORT=4430
+      # Данные из файла .env Нужны для рестрима камер
+      - OBSERVER1=${OBSERVER1}
+      - OBSERVER_PASSWORD1=${OBSERVER_PASSWORD1}
+      - OBSERVER2=${OBSERVER2}
+      - OBSERVER_PASSWORD2=${OBSERVER_PASSWORD2}
+    restart: always
+
+volumes:
+   # Места хранения видео
+   datastorage1:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/datastorage1/"
+   datastorage2:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/datastorage2/"
+   datastorage3:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/datastorage3/"
+   datastorage4:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/datastorage4/"
+   zm_images:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/images/"
+   # Если база пуста, отсюда берётся бекап
+   zm_init:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/init/"
+   # Место хранения бекапов
+   zm_backup:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/backup/"
+   # Место хранения скрипта бекапов, полезно если нужно внести правки в скрипт
+   zm_cron:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/cron/"
+   # База с настройками, выненсена, чтобы не очищалась при перезапуске контейнера
+   zm_db:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/db/"
+   # Логи zm
+   zm_logs:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/logs/"
+   # Папка с сайтом мониторинга
+   zm_www:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/www/"
+   zm_cert:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/cert/"
+   zm_apache_logs:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: bind
+        device: "/zoneminder/apache_logs/"
+        
+        
+
