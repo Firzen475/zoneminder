@@ -35,7 +35,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
   
 `mkdir /zm_data/`  
 `cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
-`cd / && git clone --branch master --single-branch https://github.com/Firzen475/zoneminder.git`  
+`cd / && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git`  
 `cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/`  
 Для создания сертификата нужно отредактировать файл:  
 `nano /zoneminder_source/cert/zoneminder.conf`  
