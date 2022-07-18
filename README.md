@@ -42,7 +42,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 `openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf`  
   
 ### II.2 Подготовка развертывания  
-Нужно подправить следующие файлы:
+Нужно подправить следующие файлы:  
 `nano /zoneminder/.env`  
 `nano /zoneminder/docker-compose.yml`  
 И ознакомиться с оставшимися файлами  
