@@ -61,6 +61,7 @@ services:
       - OBSERVER_PASSWORD1=${OBSERVER_PASSWORD1}
       - OBSERVER2=${OBSERVER2}
       - OBSERVER_PASSWORD2=${OBSERVER_PASSWORD2}
+#    network_mode: "host"
     restart: always
 
 volumes:
