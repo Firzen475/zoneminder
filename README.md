@@ -1,16 +1,26 @@
 # zoneminder  
 ## I Введение  
-За основу взят этот репозиторий.  
+За основу взят [этот](https://github.com/ZoneMinder/zmdockerfiles) репозиторий.  
+Полезная и довольно подробная [документация](https://zoneminder.readthedocs.io/_/downloads/en/1.34.3/pdf/).
   
 ***  
   
 ## II Подготовка  
 ### II.1 Установка основного софта  
-https://docs.docker.com/engine/install/ubuntu/  
-https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-ru  
+[Docker](https://docs.docker.com/engine/install/ubuntu/)  
+[docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-ru)  
 `sudo apt install git`  
   
 ### II.2 Подготовка пространства  
+  
+`mkdir /zm_data/`  
+`cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
+`cd / && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git`  
+`cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/`  
+Для создания сертификата нужно отредактировать файл:  
+`nano /zoneminder/cert/zoneminder.conf`  
+`openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf` 
+  
 Конечная структура  
 `/zm_data/`  
 `├── apache_logs` 
@@ -31,15 +41,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 `└── www`  
 `    ├── index.php`  
 `    ├── styles.css`  
-`    └── zoom.js`  
-  
-`mkdir /zm_data/`  
-`cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
-`cd / && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git`  
-`cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/`  
-Для создания сертификата нужно отредактировать файл:  
-`nano /zoneminder/cert/zoneminder.conf`  
-`openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf`  
+`    └── zoom.js`
   
 ### II.2 Подготовка развертывания  
 Нужно подправить следующие файлы:  
