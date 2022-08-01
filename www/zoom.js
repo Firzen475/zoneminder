@@ -76,8 +76,6 @@ function updateStreamSize() {
 
 function check_camera(){
     // total number of cams on the wall
-    nbrCam="<?php/* echo ($nbrCam); */?>";
-    var i=1
     function sayHi() {
         var elem = document.getElementById("cam1");
         if(elem == null ) {
