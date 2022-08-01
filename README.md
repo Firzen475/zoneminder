@@ -13,13 +13,17 @@
   
 ### II.2 Подготовка пространства  
   
-`mkdir /zm_data/`  
-`cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www`  
-`cd / && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git`  
-`cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/`  
+```
+mkdir /zm_data/  
+cd /zm_data && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www  
+cd / && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git  
+cp /zoneminder/www/* /zm_data/www/ && cp /zoneminder/cron/* /zm_data/cron/  
+```  
 Для создания сертификата нужно отредактировать файл:  
-`nano /zoneminder/cert/zoneminder.conf`  
-`openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf` 
+```
+nano /zoneminder/cert/zoneminder.conf  
+openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf` 
+```
   
 Конечная структура  
 `/zm_data/`  
