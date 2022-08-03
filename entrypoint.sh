@@ -114,7 +114,7 @@ _init_local_cam(){
 
 _init_auth_wall(){
         crontab -l > /cron_rule
-        echo -e "* * * * * /bin/sh /onStart.sh\n@hourly /bin/sh /onRefresh.ch >> /var/log/zm/my.cron.log 2>&1" >> /cron_rule
+        echo -e "*/10 * * * * /bin/sh /onStart.sh\n@hourly /bin/sh /onRefresh.sh >> /var/log/zm/my.cron.log 2>&1" >> /cron_rule
         crontab -u root /cron_rule
         echo -e "#!/bin/sh \nif [ ! -f /observer1 ]; then\ncurl -XPOST -k -d \"user=$OBSERVER1&pass=$OBSERVER_PASSWORD1\" https://localhost/zm/api/host/login.json | jq -r '.access_token' > /observer1\ncurl -XPOST -k -d \"user=$OBSERVER2&pass=$OBSERVER_PASSWORD2\" https://localhost/zm/api/host/login.json | jq -r '.access_token' > /observer2\nfi" > /onStart.sh;
         chmod +x /onStart.sh
