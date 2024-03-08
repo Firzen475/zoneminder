@@ -72,85 +72,85 @@ volumes:
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/datastorage1/"
+        device: "/zoneminder/zm_data/datastorage1/"
    datastorage2:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/datastorage2/"
+        device: "/zoneminder/zm_data/datastorage2/"
    datastorage3:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/datastorage3/"
+        device: "/zoneminder/zm_data/datastorage3/"
    datastorage4:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/datastorage4/"
+        device: "/zoneminder/zm_data/datastorage4/"
    images:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/images/"
+        device: "/zoneminder/zm_data/images/"
    # Если база пуста, отсюда берётся бекап
    init:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/init/"
+        device: "/zoneminder/zm_data/init/"
    # Место хранения бекапов
    backup:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/backup/"
+        device: "/zoneminder/zm_data/backup/"
    # Место хранения скрипта бекапов, полезно если нужно внести правки в скрипт
    cron:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/cron/"
+        device: "/zoneminder/zm_data/cron/"
    # База с настройками, выненсена, чтобы не очищалась при перезапуске контейнера
    db:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/db/"
+        device: "/zoneminder/zm_data/db/"
    # Логи zm
    logs:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/logs/"
+        device: "/zoneminder/zm_data/logs/"
    # Папка с сайтом мониторинга
    www:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/www/"
+        device: "/zoneminder/zm_data/www/"
    cert:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/cert/"
+        device: "/zoneminder/zm_data/cert/"
    apache_logs:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zm_data/apache_logs/"
+        device: "/zoneminder/zm_data/apache_logs/"
         
         
 
