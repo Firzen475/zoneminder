@@ -27,7 +27,7 @@ openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zonem
   
 Конечная структура  
 ```
-/zm_data/  
+/zoneminder/zm_data/  
 ├── apache_logs  
 ├── backup  
 ├── cert  
