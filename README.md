@@ -14,15 +14,14 @@
 ### II.2 Подготовка пространства  
   
 ```
-mkdir -p /zoneminder/zm_data/  
-cd /zoneminder/zm_data/ && mkdir ./apache_logs && mkdir ./backup && mkdir ./cert && mkdir ./cron && mkdir ./datastorage1 && mkdir ./datastorage2 && mkdir ./datastorage3 && mkdir ./datastorage4 && mkdir ./db && mkdir ./images && mkdir ./init && mkdir ./logs && mkdir ./www  
-cd /zoneminder && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git /zoneminder 
-cp /zoneminder/www/* /zoneminder/zm_data/www/ && cp /zoneminder/cron/* /zoneminder/zm_data/cron/  
+mkdir -p /zoneminder/  
+/zoneminder && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git
+chmod +x ./init.sh && ./init.sh  
 ```  
 Для создания сертификата нужно отредактировать файл:  
 ```
 nano /zoneminder/cert/zoneminder.conf  
-openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout /zm_data/cert/zoneminder.key -out /zm_data/cert/zoneminder.crt -config /zoneminder/cert/zoneminder.conf` 
+openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout ./data/cert/zoneminder.key -out ./data/cert/zoneminder.crt -config /zoneminder/data/cert/zoneminder.conf` 
 ```
   
 Конечная структура  
