@@ -13,5 +13,6 @@ mkdir -p ./data/init/
 mkdir -p ./data/logs/
 mv ./www ./data/
 mv ./cron ./data/
+mv ./cert ./data/
 apt update && apt install -y tree
 tree ./data
