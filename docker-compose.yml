@@ -54,7 +54,7 @@ services:
       # Полная очистка базы
       - CLEAR_DB=false
       # Расписание создания резервных копий
-      - SHEDULE=0 3 */1 * *
+      - SHEDULE=0 0 1 */1 *
       # Порт, на котором планиеруется сервер на хосте
       - HTTPS_PORT=4430
       # Данные из файла .env Нужны для рестрима камер
@@ -62,7 +62,11 @@ services:
       - OBSERVER_PASSWORD1=${OBSERVER_PASSWORD1}
       - OBSERVER2=${OBSERVER2}
       - OBSERVER_PASSWORD2=${OBSERVER_PASSWORD2}
-#    network_mode: "host"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://127.0.0.1:80 || exit 1" ]
+      interval: 5s
+      timeout: 5s
+      retries: 50
     restart: always
 
 volumes:
@@ -72,85 +76,85 @@ volumes:
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/datastorage1/"
+        device: "/zoneminder/data/datastorage1/"
    datastorage2:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/datastorage2/"
+        device: "/zoneminder/data/datastorage2/"
    datastorage3:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/datastorage3/"
+        device: "/zoneminder/data/datastorage3/"
    datastorage4:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/datastorage4/"
+        device: "/zoneminder/data/datastorage4/"
    images:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/images/"
+        device: "/zoneminder/data/images/"
    # Если база пуста, отсюда берётся бекап
    init:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/init/"
+        device: "/zoneminder/data/init/"
    # Место хранения бекапов
    backup:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/backup/"
+        device: "/zoneminder/data/backup/"
    # Место хранения скрипта бекапов, полезно если нужно внести правки в скрипт
    cron:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/cron/"
+        device: "/zoneminder/data/cron/"
    # База с настройками, выненсена, чтобы не очищалась при перезапуске контейнера
    db:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/db/"
+        device: "/zoneminder/data/db/"
    # Логи zm
    logs:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/logs/"
+        device: "/zoneminder/data/logs/"
    # Папка с сайтом мониторинга
    www:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/www/"
+        device: "/zoneminder/data/www/"
    cert:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/cert/"
+        device: "/zoneminder/data/cert/"
    apache_logs:
       driver: local
       driver_opts:
         type: 'none'
         o: bind
-        device: "/zoneminder/zm_data/apache_logs/"
+        device: "/zoneminder/data/apache_logs/"
         
         
 

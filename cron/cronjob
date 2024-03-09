@@ -1,0 +1,5 @@
+0 0 1 * * chmod +x /cron/cron.sh && /cron/cron.sh
+*/10 * * * * /bin/sh /cron/onStart.sh >> /var/log/cron.log 2>&1
+@hourly /bin/sh /cron/onRefresh.sh >> /var/log/cron.log 2>&1
+* * * * * /bin/chmod 777 /dev/video*
+*/10 * * * * /bin/sh /cron/local_cam.sh >> /var/log/my.cron.log 2>&1

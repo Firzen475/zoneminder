@@ -31,6 +31,7 @@ init_config(){
     fi
         sed -i 's/^Define port .*/Define port '${HTTPS_PORT}'/I' /etc/apache2/sites-available/000-default.conf
         chmod 777 /cert/zoneminder.*
+	chown -R www-data:www-data /var/www/*
 }
 # Общие настройки > конец
 # Настройки базы > начало
@@ -73,8 +74,8 @@ init_database(){
         rm -rfd /var/lib/mysql/*
         mysqld --initialize-insecure
     fi
-        mysqld_safe --user=mysql --timezone="$TZ" > /dev/null 2>&1 &
-        mysql_timer
+    mysqld_safe --user=mysql --timezone="$TZ" > /dev/null 2>&1 &
+    mysql_timer
     # Look in common places for the zoneminder dB creation script - zm_create.sql
     for FILE in "/usr/share/zoneminder/db/zm_create.sql" "/usr/local/share/zoneminder/db/zm_create.sql"; do
         if [ -f $FILE ]; then
@@ -82,51 +83,39 @@ init_database(){
             break
         fi
     done
-        echo "ZMCREATE $ZMCREATE"
+    echo "ZMCREATE $ZMCREATE"
     if [ "$(zm_db_exists)" -eq "0" ]; then
         echo " * First run of mysql in the container, creating ZoneMinder dB."
         if [ -d "/var/lib/mysql/zm/" ]; then
                 rm -rf /var/lib/mysql/zm/
         fi
-        mysql -u root -e "CREATE USER 'zmuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zmpass';"
-        mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'zmuser'@'localhost';"
-        mysql -u root < $ZMCREATE
-        mysql -u root zm < /init/dump.sql || true
-    else
+		mysql -u root -e "CREATE USER 'zmuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zmpass';"
+		mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'zmuser'@'localhost';"
+		mysql -u root < $ZMCREATE
+		mysql -u root zm < /init/dump.sql || true
+        else
         echo " * ZoneMinder dB already exists, skipping table creation."
     fi
 }
 # Настройки базы > конец
-# Запуск cron > начало
-_init_cron_backup(){
-        echo "_init_cron"
-        crontab -l > /cron_rule
-        echo -e "\n${SHEDULE} chmod +x /cron/cron.sh && /cron/cron.sh" >> /cron_rule
-        crontab -u root /cron_rule
-}
-
-_init_local_cam(){
-        crontab -l > /cron_rule
-        echo -e "#!/bin/sh -e\nchmod 777 /dev/video*\nv4l2-ctl -d /dev/video0 -s PAL\nv4l2-ctl -d /dev/video1 -s PAL\nv4l2-ctl -d /dev/video2 -s PAL\nv4l2-ctl -d /dev/video3 -s PAL\nexit 0" > /fix.sh
-        echo -e "\n@hourly chmod +x /fix.sh && /fix.sh" >> /cron_rule
-        crontab -u root /cron_rule
-}
-
-_init_auth_wall(){
-        crontab -l > /cron_rule
-        echo -e "*/10 * * * * /bin/sh /onStart.sh\n@hourly /bin/sh /onRefresh.sh >> /var/log/zm/my.cron.log 2>&1" >> /cron_rule
-        crontab -u root /cron_rule
-        echo -e "#!/bin/sh \nif [ ! -f /observer1 ]; then\ncurl -XPOST -k -d \"user=$OBSERVER1&pass=$OBSERVER_PASSWORD1\" https://localhost/zm/api/host/login.json | jq -r '.access_token' > /observer1\ncurl -XPOST -k -d \"user=$OBSERVER2&pass=$OBSERVER_PASSWORD2\" https://localhost/zm/api/host/login.json | jq -r '.access_token' > /observer2\nfi" > /onStart.sh;
-        chmod +x /onStart.sh
-        echo -e "#!/bin/sh\ncurl -XPOST -k -d \"user=$OBSERVER1&pass=$OBSERVER_PASSWORD1\" https://localhost/zm/api/host/login.json | jq -r '.access_token' > /observer1\ncurl -XPOST -k -d \"user=$OBSERVER2&pass=$OBSERVER_PASSWORD2\" https://localhost/zm/api/host/login.json | jq -r '.access_token' > /observer2" >/onRefresh.sh
-        chmod +x /onRefresh.sh
-        chown -R www-data:www-data /var/www/*
-}
 
 _start_cron(){
         echo "_start_cron"
-        crontab -l
-        /etc/init.d/cron start
+	/etc/init.d/cron start
+	touch /var/log/cron.log
+	if [ -f /cron/cronjob ]; then
+		sed -i 's/[SHEDULE]/'${SHEDULE}'/I' /cron/cronjob
+		sed -i 's/[OBSERVER1]/'${OBSERVER1}'/I' /cron/onStart.sh
+		sed -i 's/[OBSERVER_PASSWORD1]/'${OBSERVER_PASSWORD1}'/I' /cron/onStart.sh
+		sed -i 's/[OBSERVER2]/'${OBSERVER2}'/I' /cron/onStart.sh
+		sed -i 's/[OBSERVER_PASSWORD2]/'${OBSERVER_PASSWORD2}'/I' /cron/onStart.sh
+                sed -i 's/[OBSERVER1]/'${OBSERVER1}'/I' /cron/onRefresh.sh
+                sed -i 's/[OBSERVER_PASSWORD1]/'${OBSERVER_PASSWORD1}'/I' /cron/onRefresh.sh
+                sed -i 's/[OBSERVER2]/'${OBSERVER2}'/I' /cron/onRefresh.sh
+                sed -i 's/[OBSERVER_PASSWORD2]/'${OBSERVER_PASSWORD2}'/I' /cron/onRefresh.sh
+		crontab -u root /cron/cronjob
+		crontab -l
+	fi
 }
 # Запуск cron > конец
 
@@ -137,11 +126,6 @@ start_zoneminder(){
 
 
 init_config
-_init_cron_backup
-# Настройка коаксиальных камер
-_init_local_cam
-# Настройка аутентификации для стены
-_init_auth_wall
 
 init_database
 
@@ -149,7 +133,7 @@ start_zoneminder
 
 _start_cron
 
-apachectl -D FOREGROUND
+/etc/init.d/apache2 start
 
-
+tail -f /var/log/cron.log
 

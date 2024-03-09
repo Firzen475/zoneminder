@@ -7,11 +7,12 @@ ARG LANG=en_US
 ENV LANG $LANG
 ENV LANGUAGE $LANG
 
-ARG ZM_VERSION=1.34
+ARG ZM_VERSION=1.36
 ENV ZM_VERSION $ZM_VERSION
 
-ENV SHEDULE "0 0 */1 * *"
-ENV HTTPS_PORT=443
+ENV SHEDULE "0 0 1 */1 *"
+ARG HTTPS_PORT=443
+ENV HTTPS_PORT $HTTPS_PORT
 
 # Установка локали 
 RUN apt update && apt-get install -yq --no-install-recommends locales software-properties-common && \
