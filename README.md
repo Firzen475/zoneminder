@@ -15,7 +15,7 @@
   
 ```
 mkdir -p /zoneminder/  
-cd /zoneminder && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git
+cd /zoneminder && git clone --branch main --single-branch https://github.com/Firzen475/zoneminder.git /zoneminder/
 chmod +x ./init.sh && ./init.sh  
 ```  
 Для создания сертификата нужно отредактировать файл:  
