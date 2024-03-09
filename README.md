@@ -26,26 +26,29 @@ openssl req -x509 -nodes -days 4000 -newkey rsa:2048 -keyout ./data/cert/zonemin
   
 Конечная структура  
 ```
-/zoneminder/zm_data/  
-├── apache_logs  
-├── backup  
-├── cert  
-│   ├── zoneminder.crt  
-│   └── zoneminder.key  
-├── cron  
-│   └── cron.sh  
-├── datastorage1  
-├── datastorage2  
-├── datastorage3  
-├── datastorage4  
-├── db  
-├── images  
-├── init  
-├── logs  
-└── www  
-    ├── index.php  
-    ├── styles.css  
-    └── zoom.js
+./data
+├── apache_logs
+├── backup
+├── cert
+│   └── zoneminder.conf
+├── cron
+│   ├── cronjob
+│   ├── cron.sh
+│   ├── local_cam.sh
+│   ├── onRefresh.sh
+│   └── onStart.sh
+├── datastorage1
+├── datastorage2
+├── datastorage3
+├── datastorage4
+├── db
+├── images
+├── init
+├── logs
+└── www
+    ├── index.php
+    ├── styles.css
+    └── zoom.js
 ```
 
 ### II.2 Подготовка развертывания  
