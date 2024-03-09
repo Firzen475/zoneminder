@@ -187,7 +187,9 @@ find / -name  zmupdate.pl
 ```
 выполнить скрипт обновления:  
 ```
+mysql -u root -D zm -e "SET GLOBAL log_bin_trust_function_creators = 1;"
 /usr/bin/zmupdate.pl -nointeractive  
+mysql -u root -D zm -e "SET GLOBAL log_bin_trust_function_creators = 0;"
 ```
 #### Баги  
 После обновления камеры не записывают и не работают. Ошибки в логах могут быть разные.  
