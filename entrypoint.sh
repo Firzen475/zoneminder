@@ -104,15 +104,15 @@ _start_cron(){
 	/etc/init.d/cron start
 	touch /var/log/cron.log
 	if [ -f /cron/cronjob ]; then
-		sed -i 's/[SHEDULE]/'${SHEDULE}'/I' /cron/cronjob
-		sed -i 's/[OBSERVER1]/'${OBSERVER1}'/I' /cron/onStart.sh
-		sed -i 's/[OBSERVER_PASSWORD1]/'${OBSERVER_PASSWORD1}'/I' /cron/onStart.sh
-		sed -i 's/[OBSERVER2]/'${OBSERVER2}'/I' /cron/onStart.sh
-		sed -i 's/[OBSERVER_PASSWORD2]/'${OBSERVER_PASSWORD2}'/I' /cron/onStart.sh
-                sed -i 's/[OBSERVER1]/'${OBSERVER1}'/I' /cron/onRefresh.sh
-                sed -i 's/[OBSERVER_PASSWORD1]/'${OBSERVER_PASSWORD1}'/I' /cron/onRefresh.sh
-                sed -i 's/[OBSERVER2]/'${OBSERVER2}'/I' /cron/onRefresh.sh
-                sed -i 's/[OBSERVER_PASSWORD2]/'${OBSERVER_PASSWORD2}'/I' /cron/onRefresh.sh
+		sed -i 's/\[SHEDULE\]/'${SHEDULE}'/I' /cron/cronjob
+		sed -i 's/\[OBSERVER1\]/'${OBSERVER1}'/I' /cron/onStart.sh
+		sed -i 's/\[OBSERVER_PASSWORD1\]/'${OBSERVER_PASSWORD1}'/I' /cron/onStart.sh
+		sed -i 's/\[OBSERVER2\]/'${OBSERVER2}'/I' /cron/onStart.sh
+		sed -i 's/\[OBSERVER_PASSWORD2\]/'${OBSERVER_PASSWORD2}'/I' /cron/onStart.sh
+                sed -i 's/\[OBSERVER1\]/'${OBSERVER1}'/I' /cron/onRefresh.sh
+                sed -i 's/\[OBSERVER_PASSWORD1\]/'${OBSERVER_PASSWORD1}'/I' /cron/onRefresh.sh
+                sed -i 's/\[OBSERVER2\]/'${OBSERVER2}'/I' /cron/onRefresh.sh
+                sed -i 's/\[OBSERVER_PASSWORD2\]/'${OBSERVER_PASSWORD2}'/I' /cron/onRefresh.sh
 		crontab -u root /cron/cronjob
 		crontab -l
 	fi
