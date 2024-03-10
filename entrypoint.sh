@@ -94,6 +94,8 @@ init_database(){
 		mysql -u root < $ZMCREATE
 		mysql -u root zm < /init/dump.sql || true
         else
+        mysql -u root -e "ALTER USER 'zmuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zmpass';"
+        mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'zmuser'@'localhost';"
         echo " * ZoneMinder dB already exists, skipping table creation."
     fi
 }
