@@ -1,4 +1,4 @@
-0 0 1 * * chmod +x /cron/cron.sh && /cron/cron.sh
+[SHEDULE] chmod +x /cron/cron.sh && /cron/cron.sh
 */10 * * * * /bin/sh /cron/onStart.sh >> /var/log/cron.log 2>&1
 @hourly /bin/sh /cron/onRefresh.sh >> /var/log/cron.log 2>&1
 * * * * * /bin/chmod 777 /dev/video*
