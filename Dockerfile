@@ -62,9 +62,6 @@ RUN apt install -y curl jq php-curl; \
 # Setup Volumes
 VOLUME /datastorage1 /datastorage2 /datastorage3 /datastorage4 /var/cache/zoneminder/images /init /backup /cron /var/lib/mysql /var/log/zm /etc/ssl/common/ /var/www/wall/ /cert/ /var/log/apache2/
 
-# Expose http port
-EXPOSE 80 443 444 30001 30002 30003 30004 30005 30006 30007 30008 30009 30010 30011 30012 30013 30014 30015 30016 30017 30018 30019 30020
-
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
