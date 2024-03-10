@@ -7,7 +7,7 @@ init_config(){
                 chown -R mysql:mysql /var/lib/mysql/
         fi
         rm -f /var/lib/mysql/ib_logfile* > /dev/null 2>&1 &
-        sed -i 's/ZM_DB_HOST=localhost/ZM_DB_HOST=127.0.0.1/g' /etc/zm/zm.conf
+        sed -i 's/ZM_DB_HOST=localhost/ZM_DB_HOST=127.0.0.1:'${MYSQL_PORT}'/g' /etc/zm/zm.conf
         for FILE in "/etc/php/7.4/apache2/php.ini" "/etc/php/7.2/apache2/php.ini" "/etc/php/7.0/apache2/php.ini" "/etc/php5/apache2/php.ini" "/etc/php.ini" "/usr/local/etc/php.ini"; do
                 if [ -f $FILE ]; then
                         echo "date.timezone = $TZ" >> $FILE;
@@ -74,7 +74,7 @@ init_database(){
         rm -rfd /var/lib/mysql/*
         mysqld --initialize-insecure
     fi
-    mysqld_safe --user=mysql --timezone="$TZ" > /dev/null 2>&1 &
+    mysqld_safe --user=mysql --timezone="$TZ" --port=${MYSQL_PORT} > /dev/null 2>&1 &
     mysql_timer
     # Look in common places for the zoneminder dB creation script - zm_create.sql
     for FILE in "/usr/share/zoneminder/db/zm_create.sql" "/usr/local/share/zoneminder/db/zm_create.sql"; do
