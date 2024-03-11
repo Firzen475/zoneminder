@@ -28,7 +28,7 @@ ENV LANGUAGE $LANG
 
 # Установка ZONEMINDER
 RUN set -eux; \
-  apt install --assume-yes --no-install-recommends gnupg cron v4l-utils; \
+  apt install --assume-yes --no-install-recommends gnupg cron v4l-utils iproute2; \
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABE4C7F993453843F0AEB8154D0BF748776FFB04 \
   && echo deb http://ppa.launchpad.net/iconnor/zoneminder-$ZM_VERSION/ubuntu $(cat /etc/os-release | grep  UBUNTU_CODENAME= | sed 's/UBUNTU_CODENAME=//g') main > /etc/apt/sources.list.d/zoneminder.list \
   && apt update; \
